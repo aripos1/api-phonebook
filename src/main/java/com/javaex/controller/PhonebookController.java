@@ -51,6 +51,19 @@ public class PhonebookController {
 		return count;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/api/persons/{no}", method = RequestMethod.PUT)
+	 public int update(@PathVariable(value = "no") int no, @RequestBody PersonVo personVo) {
+        personVo.setPersonId(no); // PathVariable로 받은 no 값을 PersonVo에 설정
+        int count = phonebookService.exeEditPerson(personVo);
+        return count;
+	}
 	
-	
+    // 특정 사용자 정보 조회 (GET 요청)
+    @ResponseBody
+    @RequestMapping(value = "/api/persons/{no}", method = RequestMethod.GET)  // 추가된 부분
+    public PersonVo getPerson(@PathVariable(value="no") int no) {
+        PersonVo person = phonebookService.exeEditForm(no);  // 특정 사용자 정보를 조회하는 메소드 호출
+        return person;
+    }
 }
